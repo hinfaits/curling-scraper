@@ -1,0 +1,24 @@
+# Documentation:
+# https://developers.google.com/appengine/docs/python/config/appconfig
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+builtins:
+- appstats: on
+
+handlers:
+- url: .*
+  script: app.app
+
+# env_variables:
+#   APP_SETTINGS: "calendarz.config.ProductionConfig"
+#   SECRET_KEY: "change-this"
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^env/.*$
