@@ -1,15 +1,10 @@
 import sys
 import logging
 
-from flask import Flask, render_template, url_for, request, abort, Response
+from flask import Flask
 
-from app.events.draw import Draw
-from app.events.slam import Slam
-from app.sites.gsoc import Gsoc
-from app.sites.tsn import Tsn
-from app.scraper import Scraper
-from app import config
-from app import utils
+from curling.scraper import Scraper
+# from curling import config
 
 reload(sys)
 sys.setdefaultencoding('utf8')

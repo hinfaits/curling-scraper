@@ -19,4 +19,3 @@ http://calendarz.iamaaronlol.com/calendar/massive-herring-739759/ics
 ## todo
 
 * (Very important) add scraping for TSN's website
-* (Less important) make everything work without the GAE environment

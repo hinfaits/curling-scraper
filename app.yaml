@@ -8,8 +8,12 @@ builtins:
 - appstats: on
 
 handlers:
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
+
 - url: .*
-  script: app.app
+  script: curling.app
 
 # env_variables:
 #   APP_SETTINGS: "calendarz.config.ProductionConfig"

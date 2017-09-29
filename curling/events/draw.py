@@ -5,7 +5,7 @@ import re
 
 import dateutil
 
-from app import config
+from curling import config
 
 
 def str_cleanse(in_string):
@@ -15,41 +15,45 @@ def str_cleanse(in_string):
 
 class Draw(object):
 
-    def __init__(self):
-        self.name = None
-        self.datetime = None
-        self.network = None
-        self.duration = None
+    def __init__(self, name=None, dt=None, network=None, duration=timedelta(hours=1)):
+        self.name = name
+        self.datetime = dt
+        self.network = network
+        self.duration = duration
+        self.stamp = datetime.utcnow() # Used for the dtstamp ical attribute
 
-    def properties(self):
+    def ical_attrs(self):
         summary = self.name
         description = "On " + self.network
         dtstart = self.datetime.isoformat()
         dtend = (self.datetime + self.duration).isoformat()
+        dtstamp = self.stamp.isoformat()
         uid = "".join([str_cleanse(summary), dtstart, "@", config.host])
         return {
             'summary': summary,
             'description': description,
             'dtstart': dtstart,
             'dtend': dtend,
-            'dtstamp': datetime.now().isoformat(),
+            'dtstamp': dtstamp,
             'uid': uid,
         }
 
-    def encode_json(self):
+    def serialize(self):
         return json.dumps({
             'name': self.name,
             'datetime': self.datetime.isoformat(),
             'duration': self.duration.total_seconds(),
             'network': self.network,
+            'stamp': self.stamp.isoformat(),
         })
 
     @classmethod
-    def decode_json(cls, in_json):
+    def deserialize(cls, in_json):
         out = cls()
         j = json.loads(in_json)
         out.name = j["name"]
         out.network = j["network"]
         out.duration = timedelta(seconds=j["duration"])
         out.datetime = dateutil.parser.parse(j["datetime"])
+        out.stamp = dateutil.parser.parse(j["stamp"])
         return out

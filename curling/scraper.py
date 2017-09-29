@@ -2,12 +2,10 @@ import logging
 from urlparse import urlparse
 import json
 
-from app.events.draw import Draw
-from app.events.slam import Slam
-from app.sites.gsoc import Gsoc
-from app.sites.tsn import Tsn
-from app import config
-from app import utils
+from curling.sites.gsoc import Gsoc
+from curling.sites.tsn import Tsn
+from curling import config
+
 
 class Scraper(object):
 
@@ -33,7 +31,7 @@ class Scraper(object):
             if site.last_scraped and not flush_cache:
                 # Loaded from cache
                 pass
-            else:                
+            else:
                 site.scrape()
 
     def get_draws(self):

@@ -1,15 +1,12 @@
 import logging
-from datetime import datetime
-from datetime import timedelta, date, datetime
-
-import dateutil
+from datetime import timedelta
 
 try:
     from google.appengine.api import urlfetch
 except ImportError:
     import urllib2
 
-import config
+# import curling.config
 
 
 def get_url(url):
@@ -36,7 +33,7 @@ def is_dst(dt):
 
 def eastern_to_utc(dt):
     """Convert naive dt object from eastern to utc
-    Will detect and correct for DST""" 
+    Will detect and correct for DST"""
     if is_dst(dt):
         td = timedelta(hours=4)
     else:
