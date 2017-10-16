@@ -40,7 +40,7 @@ def eastern_to_utc(dt):
         td = timedelta(hours=5)
     return dt + td
 
-    # This is the (more elegant) pytz way of doing it which doesn't work on GAE
-    eastern = pytz.timezone("America/New_York")
-    est_dt = eastern.localize(dt)
-    return est_dt.astimezone(pytz.utc)
+    # (More elegant) pytz way of doing it which doesn't work on GAE
+    # eastern = pytz.timezone("America/New_York")
+    # est_dt = eastern.localize(dt)
+    # return est_dt.astimezone(pytz.utc)

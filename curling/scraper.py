@@ -1,13 +1,17 @@
+# pylint: disable=import-error
+
 import logging
 from urlparse import urlparse
 import json
 
 from curling.sites.gsoc import Gsoc
 from curling.sites.tsn import Tsn
-from curling import config
 
 
 class Scraper(object):
+
+    def __init__(self):
+        self.sites = []
 
     @staticmethod
     def init_site_from_url(url):
@@ -20,10 +24,8 @@ class Scraper(object):
         else:
             return None
 
-    def attach_sites(self):
-        self.sites = []
-        for url in config.site_urls:
-            self.sites.append(self.init_site_from_url(url))
+    def attach_site(self, url):
+        self.sites.append(self.init_site_from_url(url))
 
     def scrape(self, flush_cache=False):
         for site in self.sites:

@@ -1,3 +1,5 @@
+# pylint: disable=import-error
+
 import logging
 from datetime import datetime
 import json
@@ -5,11 +7,9 @@ import md5
 
 try:
     from google.appengine.api import memcache
-    GAE = True
 except ImportError:
-    """We're not running in a GAE environment and
-    memcache functions will not work (NameError)"""
-    GAE = False
+    # We're not running in a GAE environment
+    memcache = None
 
 from bs4 import BeautifulSoup
 import dateutil.parser
@@ -45,19 +45,18 @@ class BaseSite(object):
         return md5.new(self.url).hexdigest()
 
     def save_to_cache(self):
-        if GAE:
+        if memcache:
             memcache.set(self._key(), self.serialize(), ONE_DAY)
 
     def load_from_cache(self):
-        if not GAE:
-            return
-        cached = memcache.get(self._key())
-        if cached:
-            cached = self.__class__.deserialize(cached)
-            self.url = cached.url
-            self.last_scraped = cached.last_scraped
-            self.spiels = cached.spiels
-            return self.spiels
+        if memcache:
+            cached = memcache.get(self._key())
+            if cached:
+                cached = self.__class__.deserialize(cached)
+                self.url = cached.url
+                self.last_scraped = cached.last_scraped
+                self.spiels = cached.spiels
+                return self.spiels
 
     def get_draws(self):
         draws = []

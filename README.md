@@ -1,21 +1,11 @@
 # curling-scraper
 
-Scrape GSOC and TSN websites to get draw schedules.
+Finds all Canadian nationally televised curling draws with broadcast details by scraping the websites of TSN and the GSOC.
 
-Output draw times to JSON.
+https://curling.iamaaronlol.com/data/json
 
-????
-
-PROFIT
-
-http://curling.iamaaronlol.com/data/json
-
-# add it to your calendar
+## add it to your calendar
 
 Put the scraped draws into your calendar software with this URL.
 
-http://calendarz.iamaaronlol.com/calendar/massive-herring-739759/ics
-
-## todo
-
-* (Very important) add scraping for TSN's website
+https://calendarz.iamaaronlol.com/calendar/massive-herring-739759/ics
