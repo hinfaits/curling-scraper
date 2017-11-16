@@ -21,7 +21,7 @@ def is_dst(dt):
     month = dt.month
     if month < 3 or month > 11:
         return False
-    elif month > 3 or month < 11:
+    elif month > 3 and month < 11:
         return True
     else:
         previous_sunday = dt.day - dt.weekday()
