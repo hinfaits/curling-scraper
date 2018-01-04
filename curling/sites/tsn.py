@@ -23,11 +23,15 @@ class Tsn(BaseSite):
 
             # Extract the event name / location
             next_tag = next_tag.find("h4")
-            res = re.search("(.*) \((.*)\)", next_tag.text)
-            spiel_name = res.group(1)
-            spiel_loc = res.group(2)
+            try:
+                res = re.search("(.*) \((.*)\)", next_tag.text)
+                spiel_name = res.group(1)
+                spiel_loc = res.group(2)
+            except AttributeError:
+                spiel_name = next_tag.text
+                spiel_loc = None
 
-            spiel = Spiel(spiel_name, spiel_loc)
+            spiel = Spiel(spiel_name.title(), spiel_loc)
 
             next_tag = next_tag.findNext("tbody")
             for row in next_tag.findAll("tr"):
