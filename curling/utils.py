@@ -8,6 +8,19 @@ except ImportError:
 
 # import curling.config
 
+def header_case(in_string):
+    """
+    Return in_string with each word longer than 2 letters capitalized
+
+    Example:
+        SCOTTIES TOURNAMENT OF HEARTS -> Scotties Tournament of Hearts
+        women's world cup of curling -> Women's World Cup of Curling
+    """
+    parts = in_string.lower().split()
+    out_string = " ".join([
+        p.capitalize() if len(p) > 2 else p for p in parts])
+    return out_string
+
 
 def get_url(url):
     try:
@@ -16,6 +29,7 @@ def get_url(url):
     except NameError:
         res = urllib2.urlopen(url)
         return res.read()
+
 
 def is_dst(dt):
     month = dt.month

@@ -30,7 +30,7 @@ class Gsoc(BaseSite):
         schedules = target.findAll("tbody")
         for name, schedule in zip(names, schedules):
             spiel = Spiel()
-            spiel.name = "GSOC " + name.text.title()
+            spiel.name = "GSOC " + utils.header_case(name.text)
             next_tag = schedule.findNext("tr")
             while True:
                 try:

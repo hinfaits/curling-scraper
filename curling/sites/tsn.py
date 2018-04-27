@@ -14,19 +14,6 @@ from curling import utils
 
 # url = 'http://www.tsn.ca/2017-18-curling-broadcast-schedule-1.593081'
 
-def header_case(in_string):
-    """
-    Return in_string with each word longer than 2 letters capitalized
-
-    Example:
-        SCOTTIES TOURNAMENT OF HEARTS -> Scotties Tournament of Hearts
-        women's world cup of curling -> Women's World Cup of Curling
-    """
-    parts = in_string.lower().split()
-    out_string = " ".join([
-        p.capitalize() if len(p) > 2 else p for p in parts])
-    return out_string
-
 class Tsn(BaseSite):
 
     def parse_soup(self, soup):
@@ -44,7 +31,7 @@ class Tsn(BaseSite):
                 spiel_name = next_tag.text
                 spiel_loc = None
 
-            spiel = Spiel(header_case(spiel_name), spiel_loc)
+            spiel = Spiel(utils.header_case(spiel_name), spiel_loc)
 
             next_tag = next_tag.findNext("tbody")
             for row in next_tag.findAll("tr"):
